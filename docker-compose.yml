@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  # Service 1: The Practice App
+  practice-app:
+    build: .
+    ports:
+      - "4200:4200"
+
+  # Service 2: The Playwright Tester
+  playwright-tests:
+    image: mcr.microsoft.com/playwright:v1.45.0-jammy
+    volumes:
+      - .:/app
+    working_dir: /app
+    depends_on:
+      - practice-app
+    environment:
+      - BASE_URL=http://practice-app:4200
+    command: npx playwright test
