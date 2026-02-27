@@ -5,7 +5,8 @@ pipeline {
         stage('Clean Environment') {
             steps {
                 // Ensure no old containers are running from a previous crash
-                sh 'docker down --remove-orphans'
+                sh 'docker --version'
+                sh 'docker-compose down --remove-orphans'
             }
         }
 
