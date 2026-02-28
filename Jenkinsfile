@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        dockerTool 'my-docker' // Ensure this matches the name of your Docker installation in Jenkins
+        dockerTool 'my-docker-tool' // Ensure this matches the name of your Docker installation in Jenkins
     }
 
     stages {
