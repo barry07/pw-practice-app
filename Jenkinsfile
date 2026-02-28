@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        dockerTool 'my-docker' // Ensure this matches the name of your Docker installation in Jenkins
+    }
 
     stages {
         stage('Clean Environment') {
