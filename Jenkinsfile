@@ -13,6 +13,13 @@ pipeline {
             }
         }
 
+        stage('Checkout') {
+            steps {
+                // Checkout the code from your repository
+                checkout scm
+            }
+        }
+
         stage('Build and Start App') {
             steps {
                 // Build the app container and start it in the background (-d)
