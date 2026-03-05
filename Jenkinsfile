@@ -11,7 +11,7 @@ pipeline {
                 checkout scm // Pulls your code
             }
         }
-        stage('Build App') {
+        stage('View version') {
             steps {
                 // docker version
                 sh 'docker version'
