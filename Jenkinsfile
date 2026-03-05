@@ -20,7 +20,7 @@ pipeline {
         stage('Build App') {
             steps {
                 // Just starts the application containers in the background
-                sh '/usr/local/bin/ docker-compose up -d --build'
+                sh '/usr/local/bin/docker-compose up -d --build'
             }
         }
     }
