@@ -4,13 +4,7 @@ pipeline {
         stage('Cleanup') {
             steps {
                 // This deletes the old, broken workspace before starting fresh
-                cleanWs() 
-            }
-        }
-        stage('Verify Tools') {
-            steps {
-                // Confirming our 'docker-compose' shortcut is working
-                sh 'docker-compose --version' 
+                deleteDir() 
             }
         }
         stage('Checkout') {
