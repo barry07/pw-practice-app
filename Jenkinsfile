@@ -7,6 +7,12 @@ pipeline {
                 cleanWs() 
             }
         }
+        stage('Verify Tools') {
+            steps {
+                // Confirming our 'docker-compose' shortcut is working
+                sh 'docker-compose --version' 
+            }
+        }
         stage('Checkout') {
             steps {
                 // This pulls the code using your 'github-key' credentials
