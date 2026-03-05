@@ -14,7 +14,7 @@ pipeline {
         stage('Build App') {
             steps {
                 // Just starts the application containers in the background
-                sh 'docker-compose up -d --build'
+                sh 'docker compose up -d --build'
             }
         }
     }
