@@ -1,6 +1,12 @@
 pipeline {
     agent any
     stages {
+        stage('Cleanup Old Containers') {
+            steps {
+                // This deletes the old, broken workspace before starting fresh
+                sh 'docker rm -f practice-app || true' 
+            }
+        }
         stage('Cleanup') {
             steps {
                 // This deletes the old, broken workspace before starting fresh
