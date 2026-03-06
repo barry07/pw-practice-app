@@ -26,5 +26,11 @@ pipeline {
                     sh '/usr/local/bin/docker-compose up -d --build'
                 }
         }
+        post {
+            success {
+                // This triggers your second Jenkins job automatically
+                 build job: 'Bondar-Playwright-Tests', wait: false
+            }
+        }
     }
 }
