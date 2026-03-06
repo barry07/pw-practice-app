@@ -27,7 +27,8 @@ pipeline {
             }
             steps {
                 // Use the full path to avoid any ambiguity or flag errors
-                sh '/usr/local/bin/docker-compose up -d --build'
+                //sh '/usr/local/bin/docker-compose up -d --build'
+                sh 'docker-compose up -d --build'
             }
         }
     }
