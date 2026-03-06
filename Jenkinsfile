@@ -17,9 +17,9 @@ pipeline {
             //    sh 'docker version'
             //}
         //}
-        stage('Force Build 85') {
+        stage('Build and Run') {
             steps {
-                    echo "Test Auto Build"
+                    echo "Build app"
                     // We call the 'docker' binary and pass 'compose' as a command.
                     // This is the most stable way to run V2.
                     //sh '/usr/local/bin/docker compose up -d --build'
