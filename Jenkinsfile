@@ -18,17 +18,17 @@ pipeline {
             }
         }
         stage('Build App') {
+            environment {
+                // 1. Force the API version to match your Windows Docker (image ff62065e)
+                DOCKER_API_VERSION = '1.45'
+                COMPOSE_API_VERSION = '1.45'
+                // 2. Force Jenkins to look in the 'good' folder FIRST (image 25d8cb16)
+                PATH = "/usr/local/bin:${env.PATH}"
+            }
             steps {
-                // We force the PATH to ONLY look in /usr/local/bin first
-                // And we point DOCKER_BINARY specifically to your good file
-                script {
-                    sh '''
-                        export PATH=/usr/local/bin:$PATH
-                        export DOCKER_BINARY=/usr/local/bin/docker
-                        
-                        /usr/local/bin/docker-compose up -d --build
-                    '''
-                }
+                // 3. Run the build using the verified paths
+                sh 'docker version'
+                sh 'docker-compose up -d --build'
             }
         }
     }
