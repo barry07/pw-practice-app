@@ -23,7 +23,7 @@ pipeline {
             // We call the 'docker' binary and pass 'compose' as a command.
             // This is the most stable way to run V2.
             //sh '/usr/local/bin/docker compose up -d --build'
-            sh 'which docker && /usr/local/bin/docker compose up -d --build'
+            sh 'which docker && /usr/local/bin/docker-compose up -d --build'
         }
     }
     }
