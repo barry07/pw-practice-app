@@ -17,19 +17,13 @@ pipeline {
                 sh 'docker version'
             }
         }
-        stage('Build App') {
-            environment {
-                // Force the API version to match your Windows Daemon (image ff62065e)
-                DOCKER_API_VERSION = '1.45'
-                COMPOSE_API_VERSION = '1.45'
-                // Force priority for our known-good directory (image fdf215a5)
-                PATH = "/usr/local/bin:${env.PATH}"
-            }
-            steps {
-                // Use the full path to avoid any ambiguity or flag errors
-                //sh '/usr/local/bin/docker-compose up -d --build'
-                sh 'docker compose up -d --build'
-            }
+        stage('Build App FINAL') {
+    steps {
+            echo "Forcing build #80 with new syntax"
+            // We call the 'docker' binary and pass 'compose' as a command.
+            // This is the most stable way to run V2.
+            sh '/usr/local/bin/docker compose up -d --build'
         }
+    }
     }
 }
