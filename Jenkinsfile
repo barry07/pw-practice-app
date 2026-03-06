@@ -17,7 +17,7 @@ pipeline {
             //    sh 'docker version'
             //}
         //}
-        stage('Build and Run') {
+        stage('Build and Run test') {
             steps {
                     echo "Build app"
                     // We call the 'docker' binary and pass 'compose' as a command.
