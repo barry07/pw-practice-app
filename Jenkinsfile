@@ -18,12 +18,13 @@ pipeline {
             }
         }
         stage('Build App') {
-            environment {
-                PATH = "/usr/local/bin:${env.PATH}"
-            }
+            //environment {
+                //PATH = "/usr/local/bin:${env.PATH}"
+            //}
             steps {
                 // Just starts the application containers in the background.
-                sh '/usr/local/bin/docker-compose up -d --build'
+                sh '/usr/local/bin/docker version'
+                //sh '/usr/local/bin/docker-compose up -d --build'
             }
         }
     }
