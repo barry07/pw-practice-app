@@ -18,16 +18,17 @@ pipeline {
             }
         }
         stage('Build App') {
-            environment {
-                // this will force every command in this stage to look in /usr/local/bin FIRST
-                PATH = "/usr/local/bin:${env.PATH}"
+        steps {
+            // We force the shell to use the specific GOOD file you verified in your terminal
+            sh '/usr/local/bin/docker version'
+            
+            // We tell docker-compose EXACTLY where the good docker binary lives
+            // This prevents it from 'finding' the 1.43 version in /usr/bin
+            script {
+                sh "export DOCKER_DEFAULT_PLATFORM=linux/amd64"
+                sh "PATH=/usr/local/bin:\$PATH /usr/local/bin/docker-compose up -d --build"
             }
-            steps {
-                // Just starts the application containers in the background.
-                sh '/usr/local/bin/docker version'
-                //sh '/usr/local/bin/docker-compose up -d --build'
-                sh 'docker-compose up -d --build'
-            }
+        }
         }
     }
 }
