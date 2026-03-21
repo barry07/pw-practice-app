@@ -1,38 +1,24 @@
 pipeline {
     agent any
-
     stages {
-        stage('Clean Workspace') {
+        stage('Cleanup') {
             steps {
-                deleteDir() // Ensures no Git metadata issues
+                sh "docker stop bondar-app || true"
+                sh "docker rm bondar-app || true"
             }
         }
-
-        stage('Checkout') {
+        stage('Build Image') {
             steps {
-                checkout scm // Pulls your code
+                // Build the production-ready Nginx image
+                sh "docker build -t bondar-app-prod ."
             }
         }
-
-        // stage('View version') {
-        //     steps {
-        //         sh 'docker version'
-        //     }
-        // }
-
-        stage('Build and Run test') {
+        stage('Run App') {
             steps {
-                echo "Build app"
-                // sh '/usr/local/bin/docker compose up -d --build'
-                sh '/usr/local/bin/docker-compose up -d --build'
+                // Run it on port 4201
+                sh "docker run -d --name bondar-app -p 4201:80 bondar-app-prod"
+                echo "App is now running at http://your-jenkins-ip:4201"
             }
-        }
-    }
-
-    post {
-        success {
-            // This triggers your second Jenkins job automatically
-            build job: 'Bondar-Playwright-Tests', wait: false
         }
     }
 }
