@@ -3,21 +3,22 @@ pipeline {
     stages {
         stage('Cleanup') {
             steps {
-                sh "docker stop bondar-app || true"
-                sh "docker rm bondar-app || true"
+                // This stops and removes the containers defined in your yaml
+                sh "docker-compose down --remove-orphans || true"
             }
         }
         stage('Build Image') {
             steps {
-                // Build the production-ready Nginx image
-                sh "docker build -t bondar-app-prod ."
+                echo "Building Production Angular Image..."
+                // Compose uses the service name 'bondar-practice-app' from your yaml
+                sh "docker-compose build bondar-practice-app"
             }
         }
         stage('Run App') {
             steps {
-                // Run it on port 4201
-                sh "docker run -d --name bondar-app -p 4201:80 bondar-app-prod"
-                echo "App is now running at http://your-jenkins-ip:4201"
+                echo "Starting App in Detached Mode..."
+                sh "docker-compose up -d bondar-practice-app"
+                echo "App should be live at http://<your-server-ip>:4201"
             }
         }
     }
