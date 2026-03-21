@@ -1,9 +1,14 @@
-# use nodejs to buils the angular app
-FROM node:20 as build
+# Stage 1: Build
+FROM node:18-alpine as build
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm install --force
+COPY package*.json ./
+RUN npm install
 COPY . .
-# the app is designed to run via 'npm start'for practice
-EXPOSE 4200
-CMD ["npm", "start", "--", "--host", "0.0.0.0"]
+RUN npm run build --configuration=production
+
+# Stage 2: Serve
+FROM nginx:alpine
+# Match this 'dist' path to your angular.json 'outputPath'
+COPY --from=build /app/dist/ngx-admin /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
