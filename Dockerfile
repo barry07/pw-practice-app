@@ -10,7 +10,7 @@ RUN npm run build --configuration=production
 
 # Stage 2: Serve
 FROM nginx:alpine
-# Match this 'dist' path to your angular.json 'outputPath'
-COPY --from=build /app/dist /usr/share/nginx/html
+# this copies pre-built files straight into Nginx
+COPY ./dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
