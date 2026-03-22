@@ -21,10 +21,10 @@ pipeline {
                 echo "App should be live at http://<your-server-ip>:4201"
             }
         }
+    }
         post {
             success {
                 build job: 'Bondar-App-E2E-Tests', wait: false
             }
         }
-    }
 }
